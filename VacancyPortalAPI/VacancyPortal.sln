@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36203.30 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyBAL", "MyBAL\MyBAL.csproj", "{09EFE371-C89F-472D-AAE3-0B28A7CD1D54}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyAPI", "MyAPI\MyAPI.csproj", "{80A6186A-AF0B-4E52-94D9-2822ED925E5A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyLibrary", "MyLibrary\MyLibrary.csproj", "{E39B7C43-7BCD-4B76-A8F8-84E26A1AFC09}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{09EFE371-C89F-472D-AAE3-0B28A7CD1D54}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{09EFE371-C89F-472D-AAE3-0B28A7CD1D54}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{09EFE371-C89F-472D-AAE3-0B28A7CD1D54}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{09EFE371-C89F-472D-AAE3-0B28A7CD1D54}.Release|Any CPU.Build.0 = Release|Any CPU
+		{80A6186A-AF0B-4E52-94D9-2822ED925E5A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{80A6186A-AF0B-4E52-94D9-2822ED925E5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{80A6186A-AF0B-4E52-94D9-2822ED925E5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{80A6186A-AF0B-4E52-94D9-2822ED925E5A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E39B7C43-7BCD-4B76-A8F8-84E26A1AFC09}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E39B7C43-7BCD-4B76-A8F8-84E26A1AFC09}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E39B7C43-7BCD-4B76-A8F8-84E26A1AFC09}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E39B7C43-7BCD-4B76-A8F8-84E26A1AFC09}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F9B51A0C-44D9-4B35-A287-A4A511114504}
+	EndGlobalSection
+EndGlobal
