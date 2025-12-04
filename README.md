@@ -10,32 +10,6 @@ A complete Job Vacancy Portal system built using:
 
 This repository contains BOTH the frontend and backend.
 
-## REPOSITORY STRUCTURE
-
-angular17-vacancy-portal/
-│
-├── VacancyPortal/                  # Angular 17 Frontend
-│   ├── src/
-│   │   ├── app/
-│   │   │   ├── pages/              # Vacancies, My Applications, My Vacancies, Applications
-│   │   │   ├── services/           # Auth, Vacancy, MyApplications services
-│   │   │   ├── components/         # Header, Footer, Pagination components
-│   │   │   └── models/             # API request/response models
-│   ├── angular.json
-│   └── package.json
-│
-├── VacancyPortalAPI/               # ASP.NET Core 8 Web API
-│   ├── Controllers/
-│   ├── Repository/
-│   ├── Models/
-│   ├── Database/
-│   │   ├── Tables/                 # SQL table scripts
-│   │   └── StoredProcedures/       # SQL stored procedures
-│   ├── Program.cs
-│   └── appsettings.json
-│
-└── README.md
-
 ## DATABASE SETUP (SQL SERVER)
 
 1. Open SQL Server Management Studio (SSMS)
