@@ -18,29 +18,26 @@ This repository contains BOTH frontend and backend:
 
 angular17-vacancy-portal/
 │
-├── VacancyPortal/                     → Angular 17 Frontend
-│   ├── src/
-│   │   ├── app/
-│   │   │    ├── pages/               → Vacancies, My Applications, My Vacancies, Applications
-│   │   │    ├── services/            → Auth, Vacancy, Applications
-│   │   │    ├── components/          → Header, Footer, Pagination
-│   │   │    └── models/              → API Request & Response models
-│   │   ├── assets/
-│   │   └── main.ts / app.config.ts
-│   ├── angular.json
-│   └── package.json
+├── VacancyPortal/ — Angular 17 Frontend
+│ ├── src/
+│ │ ├── app/pages/ — Vacancies, My Applications, My Vacancies, Applications
+│ │ ├── app/services/ — AuthService, VacancyService, MyApplicationsService
+│ │ ├── app/components/ — Header, Footer, Pagination
+│ │ └── app/models/ — API request/response models
+│ ├── angular.json
+│ └── package.json
 │
-├── VacancyPortalAPI/                  → ASP.NET Core Web API
-│   ├── Controllers/
-│   ├── Repository/
-│   ├── Models/
-│   ├── Database/
-│   │     ├── Tables/                 → SQL table creation scripts
-│   │     └── StoredProcedures/       → All SPs used by the API
-│   ├── Program.cs / Startup Code
-│   └── appsettings.json
+├── VacancyPortalAPI/ — ASP.NET Core 8 Web API
+│ ├── Controllers/
+│ ├── Repository/
+│ ├── Models/
+│ ├── Database/
+│ │ ├── Tables/ — SQL table scripts
+│ │ └── StoredProcedures/ — SQL stored procedures
+│ ├── Program.cs
+│ └── appsettings.json
 │
-└── README.txt                         → Project documentation (this file)
+└── README.md
 
 
 -----------------------------------------------------
