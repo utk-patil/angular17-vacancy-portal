@@ -1,0 +1,106 @@
+<app-header></app-header>
+
+<div class="container py-4">
+
+  <h2 class="fw-bold mb-4">
+    {{ editId() ? 'Edit Vacancy' : 'Post a New Vacancy' }}
+  </h2>
+
+  @if (alertMessage()) {
+    <div class="alert alert-info fade show">
+      {{ alertMessage() }}
+    </div>
+  }
+
+  <div class="card shadow-sm">
+    <div class="card-body">
+
+      <div class="mb-3">
+        <label class="form-label fw-bold">Job Title *</label>
+        <input class="form-control"
+               [ngModel]="stTitle()"
+               (ngModelChange)="stTitle.set($event); markTouched('title')" />
+        @if ((formSubmitted() || touched.title()) && !stTitle()) {
+          <div class="text-danger small mt-1">Job title is required.</div>
+        }
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label fw-bold">Job Description *</label>
+        <textarea class="form-control" rows="4"
+                  [ngModel]="stDescription()"
+                  (ngModelChange)="stDescription.set($event); markTouched('desc')"></textarea>
+        @if ((formSubmitted() || touched.desc()) && !stDescription()) {
+          <div class="text-danger small mt-1">Job description is required.</div>
+        }
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label fw-bold">Country *</label>
+        <select class="form-select"
+                [ngModel]="inCountryID()"
+                (ngModelChange)="onCountryChange($event)">
+          <option value="">Select Country</option>
+          @for(c of countries(); track c.inCountryID) {
+            <option [value]="c.inCountryID">{{ c.stName }}</option>
+          }
+        </select>
+        @if ((formSubmitted() || touched.country()) && !inCountryID()) {
+          <div class="text-danger small mt-1">Please select a country.</div>
+        }
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label fw-bold">State *</label>
+        <select class="form-select"
+                [ngModel]="inStateID()"
+                (ngModelChange)="onStateChange($event)">
+          <option value="">Select State</option>
+          @for(s of states(); track s.inStateID) {
+            <option [value]="s.inStateID">{{ s.stName }}</option>
+          }
+        </select>
+        @if ((formSubmitted() || touched.state()) && !inStateID()) {
+          <div class="text-danger small mt-1">Please select a state.</div>
+        }
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label fw-bold">City *</label>
+        <select class="form-select"
+                [ngModel]="inCityID()"
+                (ngModelChange)="inCityID.set($event); markTouched('city')">
+          <option value="">Select City</option>
+          @for(ci of cities(); track ci.inCityID) {
+            <option [value]="ci.inCityID">{{ ci.stName }}</option>
+          }
+        </select>
+        @if ((formSubmitted() || touched.city()) && !inCityID()) {
+          <div class="text-danger small mt-1">Please select a city.</div>
+        }
+      </div>
+
+      <div class="form-check mb-4">
+        <input type="checkbox"
+               class="form-check-input"
+               [ngModel]="flgIsActive()"
+               (ngModelChange)="flgIsActive.set($event)" />
+        <label class="form-check-label fw-bold">Vacancy Active</label>
+      </div>
+
+      <button class="btn btn-primary btn-lg"
+              (click)="saveVacancy()"
+              [disabled]="isSaving()">
+        {{
+          isSaving()
+          ? (editId() ? "Updating..." : "Saving...")
+          : (editId() ? "Update Vacancy" : "Post Vacancy")
+        }}
+      </button>
+
+    </div>
+  </div>
+
+</div>
+
+<app-footer></app-footer>

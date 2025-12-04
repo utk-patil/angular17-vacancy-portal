@@ -1,0 +1,96 @@
+<app-header></app-header>
+
+<div class="container py-4">
+
+  @if (alertMessage()) {
+    <div class="alert alert-info alert-dismissible fade show" role="alert">
+      {{ alertMessage() }}
+    </div>
+  }
+
+  <!-- Search Section -->
+  <div class="row mb-4">
+
+    <div class="col-md-10">
+      <input
+        class="form-control form-control-lg"
+        placeholder="Search vacancies by title or description..."
+        [ngModel]="searchText()"
+        (ngModelChange)="searchText.set($event)"
+        (keyup.enter)="onSearch()"
+      />
+    </div>
+
+    <div class="col-md-2 d-grid">
+      <button class="btn btn-primary btn-lg" (click)="onSearch()">
+        <i class="bi bi-search"></i> Search
+      </button>
+    </div>
+  </div>
+
+  <!-- LOADER -->
+  @if (isLoading()) {
+    <div class="text-center my-5">
+      <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;"></div>
+      <p class="mt-2">Loading vacancies...</p>
+    </div>
+  }
+
+  <!-- VACANCY LIST -->
+  @if (!isLoading()) {
+    @for (v of vacancies(); track v.inVacancyID) {
+
+      <div class="card mb-3 shadow-sm">
+        <div class="card-body">
+
+          <div class="d-flex justify-content-between align-items-center">
+            <h4>{{ v.stTitle }}</h4>
+            <button class="btn btn-success btn-sm" (click)="applyForVacancy(v.inVacancyID)">
+              Apply
+            </button>
+          </div>
+
+          <p class="text-muted">{{ v.stDescription }}</p>
+
+          <ul class="list-inline mb-1">
+
+            <li class="list-inline-item">
+              <i class="bi bi-geo-alt text-danger"></i>
+              {{ v.stCityName }}, {{ v.stStateName }}, {{ v.stCountryName }}
+            </li>
+
+            <li class="list-inline-item">
+              <i class="bi bi-calendar-check text-success"></i>
+              {{ v.dtCreatedAt | date:'medium' }}
+            </li>
+
+            @if (v.inModifiedBy !== null) {
+              <li class="list-inline-item">
+                <i class="bi bi-pencil-square text-warning"></i>
+                Modified by: {{ v.stModifiedBy }}
+              </li>
+
+              <li class="list-inline-item">
+                <i class="bi bi-clock-history text-info"></i>
+                {{ v.dtModifiedAt | date:'medium' }}
+              </li>
+            }
+
+          </ul>
+
+        </div>
+      </div>
+    }
+  }
+
+  <!-- REUSABLE PAGINATION -->
+  <app-pagination
+    [pageNumber]="pageNumber()"
+    [pageSize]="pageSize()"
+    [totalRecords]="totalRecords()"
+    (pageChange)="onPageChange($event)">
+  </app-pagination>
+
+</div>
+
+<app-footer></app-footer>

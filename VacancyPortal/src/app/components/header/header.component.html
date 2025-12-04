@@ -1,0 +1,54 @@
+<nav class="navbar navbar-dark bg-dark px-4">
+  <a class="navbar-brand"
+     [routerLink]="auth.isRecruiter() ? '/my-vacancies' : '/vacancies'">
+     Vacancy Portal
+  </a>
+
+  <ul class="navbar-nav flex-row ms-4">
+
+    <!-- 🟢 Candidate Menu -->
+    <li class="nav-item mx-2" *ngIf="auth.isCandidate()">
+      <a class="nav-link text-light" routerLink="/vacancies">Vacancies</a>
+    </li>
+
+    <li class="nav-item mx-2" *ngIf="auth.isCandidate()">
+      <a class="nav-link text-light" routerLink="/my-applications">My Applications</a>
+    </li>
+
+    <!-- 🟢 Recruiter Menu -->
+    <li class="nav-item mx-2" *ngIf="auth.isRecruiter()">
+      <a class="nav-link text-light" routerLink="/post-vacancy">Post Vacancy</a>
+    </li>
+
+    <li class="nav-item mx-2" *ngIf="auth.isRecruiter()">
+      <a class="nav-link text-light" routerLink="/my-vacancies">My Vacancies</a>
+    </li>
+
+    <!-- <li class="nav-item mx-2" *ngIf="auth.isRecruiter()">
+      <a class="nav-link text-light" routerLink="/recruiter-applications">
+        Applications
+      </a>
+    </li> -->
+
+  </ul>
+
+  <div class="ms-auto">
+
+    <!-- When NOT logged in -->
+    <button 
+      *ngIf="!auth.isLoggedIn()" 
+      class="btn btn-outline-light"
+      routerLink="/login">
+      Login
+    </button>
+
+    <!-- When logged in -->
+    <button 
+      *ngIf="auth.isLoggedIn()" 
+      class="btn btn-danger"
+      (click)="logout()">
+      Logout ({{ auth.user()?.stName }})
+    </button>
+
+  </div>
+</nav>

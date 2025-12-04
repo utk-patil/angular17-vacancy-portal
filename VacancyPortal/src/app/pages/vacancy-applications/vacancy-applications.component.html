@@ -1,0 +1,195 @@
+<app-header></app-header>
+
+<div class="container py-4">
+
+  <h2 class="fw-bold mb-4">Applications for Vacancy</h2>
+
+  <!-- Bootstrap Alert -->
+  <div *ngIf="alertMessage()" class="alert alert-dismissible fade show"
+       [ngClass]="'alert-' + alertType()" role="alert">
+    {{ alertMessage() }}
+    <button type="button" class="btn-close" (click)="alertMessage.set(null)"></button>
+  </div>
+
+  <div class="card shadow-sm mb-4">
+    <div class="card-body">
+
+      <div class="row g-3">
+
+        <div class="col-md-5">
+          <input
+            class="form-control form-control-lg"
+            placeholder="Search candidate or description..."
+            [ngModel]="search()"
+            (ngModelChange)="search.set($event)"
+            (keyup.enter)="onSearch()"
+          />
+        </div>
+
+        <div class="col-md-4">
+          <select class="form-select form-select-lg" (change)="onStatusChange($event)">
+            <option value="">All Status</option>
+            <option value="0">Submitted</option>
+            <option value="1">Reviewed</option>
+            <option value="2">Shortlisted</option>
+            <option value="3">Rejected</option>
+            <option value="4">Selected</option>
+            <option value="5">Withdrawn</option>
+          </select>
+        </div>
+
+        <div class="col-md-3 d-grid">
+          <button class="btn btn-primary btn-lg" (click)="onSearch()">Search</button>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  @if (isLoading()) {
+    <div class="text-center my-5">
+      <div class="spinner-border text-primary" style="width:3rem;height:3rem;"></div>
+      <p>Loading applications...</p>
+    </div>
+  }
+
+  @if (!isLoading() && apps().length === 0) {
+    <div class="alert alert-info text-center">No applications found.</div>
+  }
+
+  @for(app of apps(); track app.inApplicationID) {
+
+    <div class="card shadow-sm mb-3 border-0">
+      <div class="card-body">
+
+        <div class="d-flex justify-content-between align-items-start">
+
+          <!-- LEFT SIDE INFO -->
+          <div class="me-3">
+
+            <h4 class="fw-bold mb-1">{{ app.stTitle }}</h4>
+            <p class="text-muted mb-2">{{ app.stDescription }}</p>
+
+            <p class="mb-1">
+              <strong>Location:</strong>
+              {{ app.stCityName }}, {{ app.stStateName }}, {{ app.stCountryName }}
+            </p>
+
+            <p class="mb-1">
+              <strong>Applied By:</strong> {{ app.stCreatedBy }}
+            </p>
+
+            @if (app.inModifiedBy !== null) {
+              <p class="mb-1"><strong>Modified By:</strong> {{ app.stModifiedBy }}</p>
+              <p class="mb-1"><strong>Modified On:</strong> {{ app.dtModifiedAt | date:'medium' }}</p>
+            }
+
+            <p class="mb-1">
+              <strong>Status:</strong>
+              <span class="badge px-3 py-2"
+                [class.bg-secondary]="app.inStatus === 0"
+                [class.bg-info]="app.inStatus === 1"
+                [class.bg-warning]="app.inStatus === 2"
+                [class.bg-danger]="app.inStatus === 3"
+                [class.bg-success]="app.inStatus === 4"
+                [class.bg-dark]="app.inStatus === 5">
+                {{ app.stStatus }}
+              </span>
+            </p>
+
+            <p class="mb-0">
+              <strong>Applied On:</strong> {{ app.dtCreatedAt | date:'medium' }}
+            </p>
+
+          </div>
+
+          <!-- RIGHT SIDE ACTION BUTTONS -->
+          <div class="d-flex flex-column gap-2">
+
+            <!-- SUBMITTED = 0 -->
+            @if (app.inStatus === 0) {
+              <button class="btn btn-outline-info btn-sm rounded-pill"
+                (click)="updateStatus(app.inApplicationID, 1)">
+                Reviewing
+              </button>
+
+              <button class="btn btn-outline-warning btn-sm rounded-pill"
+                (click)="updateStatus(app.inApplicationID, 2)">
+                Shortlist
+              </button>
+
+              <button class="btn btn-outline-danger btn-sm rounded-pill"
+                (click)="updateStatus(app.inApplicationID, 3)">
+                Reject
+              </button>
+
+              <button class="btn btn-outline-success btn-sm rounded-pill"
+                (click)="updateStatus(app.inApplicationID, 4)">
+                Select
+              </button>
+            }
+
+            <!-- REVIEWED = 1 -->
+            @if (app.inStatus === 1) {
+              <button class="btn btn-outline-warning btn-sm rounded-pill"
+                (click)="updateStatus(app.inApplicationID, 2)">
+                Shortlist
+              </button>
+
+              <button class="btn btn-outline-danger btn-sm rounded-pill"
+                (click)="updateStatus(app.inApplicationID, 3)">
+                Reject
+              </button>
+
+              <button class="btn btn-outline-success btn-sm rounded-pill"
+                (click)="updateStatus(app.inApplicationID, 4)">
+                Select
+              </button>
+            }
+
+            <!-- SHORTLISTED = 2 -->
+            @if (app.inStatus === 2) {
+              <button class="btn btn-outline-success btn-sm rounded-pill"
+                (click)="updateStatus(app.inApplicationID, 4)">
+                Select
+              </button>
+
+              <button class="btn btn-outline-danger btn-sm rounded-pill"
+                (click)="updateStatus(app.inApplicationID, 3)">
+                Reject
+              </button>
+            }
+
+            <!-- REJECTED = 3 -->
+            @if (app.inStatus === 3) {
+            }
+
+            <!-- SELECTED = 4 -->
+            @if (app.inStatus === 4) {
+            }
+
+            <!-- WITHDRAWN = 5 -->
+            @if (app.inStatus === 5) {
+              <!-- No actions -->
+            }
+
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+  }
+
+  <app-pagination
+    [pageNumber]="pageNumber()"
+    [pageSize]="pageSize()"
+    [totalRecords]="totalRecords()"
+    (pageChange)="onPageChange($event)">
+  </app-pagination>
+
+</div>
+
+<app-footer></app-footer>

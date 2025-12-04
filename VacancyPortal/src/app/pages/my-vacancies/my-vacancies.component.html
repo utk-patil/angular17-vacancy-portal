@@ -1,0 +1,100 @@
+<app-header></app-header>
+
+<div class="container py-4">
+
+  <h2 class="fw-bold mb-4">My Vacancies</h2>
+
+  <div class="card shadow-sm mb-4">
+    <div class="card-body">
+
+      <div class="row g-3">
+
+        <div class="col-md-5">
+          <input
+            class="form-control form-control-lg"
+            placeholder="Search job title or description..."
+            [ngModel]="searchText()"
+            (ngModelChange)="searchText.set($event)"
+            (keyup.enter)="onSearch()"
+          />
+        </div>
+
+        <div class="col-md-4">
+          <select class="form-select form-select-lg" (change)="onStatusChange($event)">
+            <option value="">All</option>
+            <option value="1">Active</option>
+            <option value="0">Inactive</option>
+          </select>
+        </div>
+
+        <div class="col-md-3 d-grid">
+          <button class="btn btn-primary btn-lg" (click)="onSearch()">Search</button>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  @if (alertMessage()) {
+    <div class="alert alert-info">{{ alertMessage() }}</div>
+  }
+
+  @if (isLoading()) {
+    <div class="text-center my-5">
+      <div class="spinner-border text-primary" style="width:3rem;height:3rem;"></div>
+      <p>Loading...</p>
+    </div>
+  }
+
+  @if (!isLoading() && vacancies().length === 0) {
+    <div class="alert alert-info text-center">No vacancies found.</div>
+  }
+
+  @for(v of vacancies(); track v.inVacancyID) {
+    <div class="card shadow-sm border-0 mb-3">
+      <div class="card-body">
+
+        <div class="d-flex justify-content-between align-items-start">
+          <div>
+            <h4 class="fw-bold">{{ v.stTitle }}</h4>
+            <p class="text-muted">{{ v.stDescription }}</p>
+            <p><strong>Location:</strong> {{ v.stCityName }}, {{ v.stStateName }}, {{ v.stCountryName }}</p>
+            <p><strong>Created:</strong> {{ v.dtCreatedAt | date:'medium' }}</p>
+          </div>
+
+          <div class="d-flex flex-column gap-2">
+
+            <button class="btn btn-primary btn-sm px-3"
+                    (click)="openApplications(v.inVacancyID)">
+                Applications
+            </button>
+
+            <button class="btn btn-warning btn-sm px-3"
+                    (click)="editVacancy(v.inVacancyID)">
+                Edit
+            </button>
+
+            <button class="btn btn-danger btn-sm px-3"
+                    (click)="deleteVacancy(v.inVacancyID)">
+                Delete
+            </button>
+
+        </div>
+
+        </div>
+
+      </div>
+    </div>
+  }
+
+  <app-pagination
+    [pageNumber]="pageNumber()"
+    [pageSize]="pageSize()"
+    [totalRecords]="totalRecords()"
+    (pageChange)="onPageChange($event)">
+  </app-pagination>
+
+</div>
+
+<app-footer></app-footer>
