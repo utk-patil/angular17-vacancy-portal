@@ -1,8 +1,8 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser, CommonModule } from '@angular/common';
 import { VacancyService } from '../../services/vacancy.service';
 import { Vacancy, VacancyResponse } from '../../models/vacancy.model';
 import { Router } from '@angular/router';
-import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HeaderComponent } from '../../components/header/header.component';
 import { FooterComponent } from '../../components/footer/footer.component';
@@ -24,6 +24,7 @@ export class VacancyListComponent {
 
   private vacancyService = inject(VacancyService);
   private router = inject(Router);
+  private platformId = inject(PLATFORM_ID);
 
   vacancies = signal<Vacancy[]>([]);
   totalRecords = signal(0);
@@ -43,6 +44,7 @@ export class VacancyListComponent {
   }
 
   getUserId() {
+    if (!isPlatformBrowser(this.platformId)) return null;
     const session = localStorage.getItem('user_session');
     if (!session) return null;
     const user = JSON.parse(session);
@@ -96,6 +98,7 @@ export class VacancyListComponent {
   }
 
   applyForVacancy(inVacancyID: number) {
+    if (!isPlatformBrowser(this.platformId)) return;
     const session = localStorage.getItem('user_session');
     if (!session) {
       this.router.navigate(['/login']);
