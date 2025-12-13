@@ -19,8 +19,8 @@ CREATE DATABASE VacancyPortalDB;
 
 3. Execute ALL scripts from:
 
-VacancyPortalAPI/Database/Tables/
-VacancyPortalAPI/Database/StoredProcedures/
+- VacancyPortalAPI/Database/Tables/
+- VacancyPortalAPI/Database/StoredProcedures/
 
 ## BACKEND – HOW TO RUN (ASP.NET CORE API)
 
